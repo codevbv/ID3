@@ -19,7 +19,7 @@ def printTree(root,count):
             print(M.children[value].attribute)
             printTree(M.children[value], count+2)
 
-
+#determines the mostCommmonLabel for a given instance set
 def mostCommonLabel(instanceSet):
     count={}
     for i in instanceSet:
@@ -231,8 +231,9 @@ def main():
         for i in range(0,len(attributes)):
             attributeDict[attributeNames[i]].add(attributes[i])
     
-
-    random.shuffle(instances) #randomize the list
+#randomize dataset instances into a testset and a trainingSet which is based off
+#the percentage that the user gives            
+    random.shuffle(instances) 
     testSet=[]
     trainingSet=[]
     
@@ -264,11 +265,15 @@ def main():
             predictions[matrixRep] +=1
         else:
             predictions[matrixRep]=1
+
+#Printing a confusion matrix for our predictions on testSet
+#this is the outputted to the current directory as a csv file
+#if user makes "python3 ID3.py monks1.csv 0.75 12345", then the
+#output file will be titled 'results_ID3_monk1.csv_12345.csv'
     Fname = ("results_ID3__%s__%d.csv" %(dataSet,seed))
     F= open(Fname,"w")
     correct=0
     total=0
-    #confidence interval
     for l in labels:
         F.write("%s,"%(l))
     F.write("\n")
